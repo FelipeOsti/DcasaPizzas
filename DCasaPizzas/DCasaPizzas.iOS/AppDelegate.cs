@@ -37,7 +37,8 @@ namespace DCasaPizzas.iOS
                               typeof(Analytics), typeof(Crashes));
             AppCenter.Start("fd3abbc0-aba1-43f1-9c5a-8534ecebc73b", typeof(Analytics), typeof(Crashes));
 
-            return base.FinishedLaunching(app, options);           
+            return base.FinishedLaunching(app, options);
+            
         }
     }
 }
