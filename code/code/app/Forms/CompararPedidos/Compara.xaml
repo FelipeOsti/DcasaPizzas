@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppRomagnole.Forms.CompararPedidos.Compara">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="listViewPedidos" 
+                              SeparatorVisibility="None"
+                              HasUnevenRows="True" 
+                              IsGroupingEnabled="True" 
+                              VerticalOptions="FillAndExpand"
+                              GroupDisplayBinding="{Binding GroupName}"
+                              BackgroundColor="White">
+                <ListView.Header>
+                    <StackLayout>
+                        <StackLayout Padding="10">
+                            <ActivityIndicator Color="Black" IsVisible="{Binding IsBusy}" IsEnabled="{Binding IsBusy}" IsRunning="{Binding IsBusy}" HorizontalOptions="CenterAndExpand"/>
+                            <StackLayout Padding="10" x:Name="stkGrafico"></StackLayout>
+                            <StackLayout Padding="10" Orientation="Horizontal">
+                                <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
+                                    <Label Text="Ontem" VerticalOptions="Center"/>
+                                    <StackLayout Margin="5">
+                                        <Label Text="PEDIDO" TextColor="Gray" FontSize="10"/>
+                                        <Label x:Name="qtPedidoOntem" FontSize="18" FontAttributes="Bold"/>
+                                    </StackLayout>
+                                    <StackLayout Margin="5">
+                                        <Label Text="CARTEIRA" TextColor="Gray" FontSize="10"/>
+                                        <Label x:Name="qtCarteiraOntem" FontSize="18" FontAttributes="Bold"/>
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+                                    <Label Text="Hoje" VerticalOptions="Center"/>
+                                    <StackLayout Margin="5">
+                                        <Label Text="PEDIDO" TextColor="Gray" FontSize="10"/>
+                                        <Label x:Name="qtPedidoHoje" FontSize="18" FontAttributes="Bold"/>
+                                    </StackLayout>
+                                    <StackLayout Margin="5">
+                                        <Label Text="CARTEIRA" TextColor="Gray" FontSize="10"/>
+                                        <Label x:Name="qtCarteiraHoje" FontSize="18" FontAttributes="Bold"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+
+                        <StackLayout BackgroundColor="#e8e8e8" Padding="5">
+                            <Label HorizontalOptions="CenterAndExpand" Text="Composição da Carteira"/>
+                        </StackLayout>
+                    </StackLayout>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="5" Margin="5,5,5,5">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding nrPedido}"  WidthRequest="80" HorizontalOptions="StartAndExpand" FontSize="12" LineBreakMode="NoWrap"  FontAttributes="Bold"/>
+                                    <Label Text="{Binding dsCliente}" LineBreakMode="NoWrap" HorizontalTextAlignment="Start" HorizontalOptions="CenterAndExpand" FontSize="12"  FontAttributes="Bold"/>
+                                    <Label Text="{Binding svlPedido}" WidthRequest="90" LineBreakMode="NoWrap" HorizontalTextAlignment="End" HorizontalOptions="EndAndExpand" FontSize="12" FontAttributes="Bold" Margin="0,0,5,0"/>
+                                </StackLayout>
+                                <Label Text="Motivo" TextColor="Gray" IsVisible="{Binding IsVisible}" FontSize="10"/>
+                                <Label Text="{Binding dsMotivo}" IsVisible="{Binding IsVisible}" FontSize="12"  FontAttributes="Bold"/>
+                                <Label Text="Previsão de faturamento" TextColor="Gray" IsVisible="{Binding IsVisible}" FontSize="10"/>
+                                <Label Text="{Binding sdtFatura}" IsVisible="{Binding IsVisible}" FontSize="12"  FontAttributes="Bold"/>
+                                <Label Text="Equipe" TextColor="Gray" IsVisible="{Binding IsVisible}" FontSize="10"/>
+                                <Label Text="{Binding dsClassif}" IsVisible="{Binding IsVisible}" FontSize="12" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

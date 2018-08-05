@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DCasaPizzas.Login.FacebookLogin">
+    <ContentPage.Content>
+        <StackLayout x:Name="stackTela">
+            <StackLayout x:Name="stackLoading" HorizontalOptions="CenterAndExpand">
+                <ActivityIndicator IsRunning="True" IsEnabled="True" HorizontalOptions="CenterAndExpand" IsVisible="True" Color="Gray"/>
+                <Label Text="Aguarde... Iniciando!" TextColor="Gray" HorizontalTextAlignment="Center"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

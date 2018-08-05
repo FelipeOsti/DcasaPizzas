@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DCasaPizzas.Fidelidade.Acumular">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#ededed" Padding="10">
+            <Frame BackgroundColor="White" CornerRadius="15" Padding="15" VerticalOptions="StartAndExpand">
+                <StackLayout>
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Entry x:Name="nrToken" FontSize="20" HorizontalTextAlignment="Center" Keyboard="Numeric" FontAttributes="Bold" Placeholder="Digite aqui seu token" HorizontalOptions="FillAndExpand" PlaceholderColor="Gray"/>
+                            <Button x:Name="btQRCODE" Image="qrcode.png" Clicked="btQRCODE_Clicked" HeightRequest="20" WidthRequest="40" HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                        <Button Clicked="Button_Clicked" HeightRequest="38" x:Name="btAcumular" HorizontalOptions="Fill" Text="Acumular" CornerRadius="15" BackgroundColor="Transparent" BorderColor="#a50b0b" BorderWidth="1" TextColor="#a50b0b"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <ActivityIndicator x:Name="indiAcumulando" IsEnabled="True" IsRunning="True" IsVisible="False"/>
+                        <Label x:Name="lblAcumulando" Text="Aguarde, verificando Token..." IsVisible="False" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

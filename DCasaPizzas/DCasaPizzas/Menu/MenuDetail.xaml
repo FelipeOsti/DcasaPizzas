@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DCasaPizzas.Menu.MenuDetail"
+             Title="D'Casa Pizzas">
+    <StackLayout>
+        <StackLayout Padding="5" BackgroundColor="#ededed">
+            <Frame CornerRadius="15" BackgroundColor="White">
+                <StackLayout>
+                    <StackLayout BackgroundColor="#a50b0b" Margin="-20,-20,-20,0" Padding="10">
+                        <Label Text="Pontuação Fidelidade" TextColor="White"/>
+                    </StackLayout>
+
+                    <RelativeLayout BackgroundColor="White" Margin="10" HeightRequest="30">
+                        <Image Source="pizza.jpg" Aspect="AspectFill" Opacity="0.4" Margin="-30,-17,-30,-30"
+                               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                               RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}"/>
+                        <StackLayout RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                               RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}">
+                            <Label x:Name="nrPontos" Text="Calculando" TextColor="#212121" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="48" Margin="0,-11,0,0"/>
+                        </StackLayout>
+                    </RelativeLayout>
+                </StackLayout>
+            </Frame>
+
+            <Button Clicked="btAcumular_Clicked"  HeightRequest="38" VerticalOptions="EndAndExpand" Text="Acumular Novos Pontos" CornerRadius="15" BackgroundColor="Transparent" BorderColor="#a50b0b" BorderWidth="1" TextColor="#a50b0b"/>
+
+            <Frame CornerRadius="15" BackgroundColor="White" Padding="5">
+                <StackLayout>
+                    <StackLayout BackgroundColor="#a50b0b" Margin="-5,-5,-5,0" Padding="5">
+                        <Label Text="Troque sua pontuação" TextColor="White"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label x:Name="lblMsgTroca" Text="Pontuação Mínima para troca [ 400 pts ]" TextColor="#a50b0b" FontSize="10" HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                    <ListView x:Name="lstViewProdutos"
+                              SeparatorVisibility="None"
+                              HasUnevenRows="true"
+                              BackgroundColor="White"
+                              ItemTapped="lstViewProdutos_ItemTapped">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal" Padding="5" HorizontalOptions="FillAndExpand">
+                                        <Grid HorizontalOptions="FillAndExpand">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="25"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0" Text="{Binding DS_PRODUTO}" TextColor="Gray" LineBreakMode="NoWrap" />
+                                            <Label Grid.Column="1" Text="{Binding DS_TAMANHO}" TextColor="Gray" HorizontalOptions="EndAndExpand"  HorizontalTextAlignment="End"/>
+                                            <Label Grid.Column="2" Text="{Binding DS_PONTOS}" TextColor="Gray" HorizontalOptions="EndAndExpand" HorizontalTextAlignment="End"/>
+                                            <Image Grid.Column="3" Source="ok.png" IsVisible="{Binding BO_SELECTED}" HorizontalOptions="EndAndExpand" HeightRequest="18" VerticalOptions="Center"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.Footer>
+                            <StackLayout Padding="10">
+                                <Button x:Name="btTroca" Text="Realizar Troca" BackgroundColor="Transparent" BorderRadius="15" BorderWidth="1" BorderColor="#a50b0b" TextColor= "#a50b0b" HeightRequest="38" Clicked="btTroca_Clicked"/>
+                            </StackLayout>
+                        </ListView.Footer>
+                    </ListView>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

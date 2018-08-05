@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DCasaPizzas.Fidelidade.MeusPontos">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <StackLayout>
+                <StackLayout>
+                    <Frame CornerRadius="15" BackgroundColor="White" Margin="0,0,0,10">
+                        <StackLayout>
+                            <StackLayout BackgroundColor="#a50b0b" Margin="-20,-20,-20,0" Padding="10">
+                                <Label Text="Minhas Trocas" TextColor="White"/>
+                            </StackLayout>
+                            <StackLayout BackgroundColor="White">
+                                <ActivityIndicator x:Name="indiCarregando" IsEnabled="True" IsRunning="True" IsVisible="{Binding IsBusy}" BackgroundColor="White" Color="#632119" HorizontalOptions="CenterAndExpand"/>
+                                <ListView x:Name="ListViewTrocas"
+                                          SeparatorVisibility="None"
+                                          HasUnevenRows="True"
+                                          ItemsSource="{Binding lstTrocas}"
+                                          BackgroundColor="White">
+                                    <ListView.Header>
+                                    </ListView.Header>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+                                                <StackLayout Orientation="Horizontal" Padding="5">
+                                                    <StackLayout Margin="0,0,20,0">
+                                                        <Label Text="Data da Compra" FontSize="10" VerticalOptions="Start" TextColor="Gray" HorizontalOptions="Center"/>
+                                                        <Label Text="{Binding DtCompraDia}" FontSize="14" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                                        <Label Text="{Binding DtCompraMesAno}" FontSize="10" VerticalOptions="End" HorizontalOptions="Center"/>
+                                                    </StackLayout>
+
+                                                    <StackLayout Margin="20,0,0,0">
+                                                        <Label Text="Validade" FontSize="10" VerticalOptions="Start" TextColor="Gray" HorizontalOptions="Center"/>
+                                                        <Label Text="{Binding DtValidadeDia}" FontSize="14" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                                        <Label Text="{Binding DtValidadeMesAno}" FontSize="10" VerticalOptions="End" HorizontalOptions="Center"/>
+                                                    </StackLayout>
+
+                                                    <Label Text="{Binding sNrPontos}" VerticalOptions="Center" TextColor="Green" FontAttributes="Bold" HorizontalOptions="EndAndExpand" FontSize="16"/>
+                                                </StackLayout>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+                <StackLayout>
+                    <Frame CornerRadius="15" BackgroundColor="White">
+                        <StackLayout>
+                            <StackLayout BackgroundColor="#a50b0b" Margin="-20,-20,-20,0" Padding="10">
+                                <Label Text="Saldo a Expirar ou Expirado - 30 dias" TextColor="White"/>
+                            </StackLayout>
+                            <StackLayout BackgroundColor="White">
+                                <ListView x:Name="ListViewExpirar"
+                                          SeparatorVisibility="None"
+                                          HasUnevenRows="True"
+                                          ItemsSource="{Binding lstTrocas}"
+                                          BackgroundColor="White">
+                                    <ListView.Header>
+                                    </ListView.Header>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+                                                <StackLayout Orientation="Horizontal" Padding="5">
+                                                    <StackLayout Margin="0,0,20,0">
+                                                        <Label Text="Data da Compra" FontSize="8" VerticalOptions="Start" TextColor="Gray" HorizontalOptions="Center"/>
+                                                        <Label Text="{Binding DtCompraDia}" FontSize="14" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                                        <Label Text="{Binding DtCompraMesAno}" FontSize="10" VerticalOptions="End" HorizontalOptions="Center"/>
+                                                    </StackLayout>
+
+                                                    <StackLayout Margin="20,0,0,0">
+                                                        <Label Text="Validade" FontSize="8" VerticalOptions="Start" TextColor="Gray" HorizontalOptions="Center"/>
+                                                        <Label Text="{Binding DtValidadeDia}" FontSize="14" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                                        <Label Text="{Binding DtValidadeMesAno}" FontSize="10" VerticalOptions="End" HorizontalOptions="Center"/>
+                                                    </StackLayout>
+
+                                                    <Label Text="{Binding sNrPontosNeg}" VerticalOptions="Center" TextColor="Red" FontAttributes="Bold" HorizontalOptions="EndAndExpand" FontSize="16"/>
+                                                </StackLayout>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

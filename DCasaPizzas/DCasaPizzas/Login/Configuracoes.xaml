@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DCasaPizzas.Login.Configuracoes">
+    <ContentPage.Content>
+        <ScrollView Padding="10">
+            <StackLayout>
+                <Frame BackgroundColor="White" CornerRadius="15">
+                    <StackLayout>
+                        <Entry x:Name="Email" Keyboard="Email" Placeholder="E-mail" PlaceholderColor="Gray"/>
+                        <Entry x:Name="CPF" Keyboard="Numeric" Placeholder="CPF" PlaceholderColor="Gray"/>
+                        <Entry x:Name="Nome" Placeholder="Nome" PlaceholderColor="Gray"/>
+                    </StackLayout>
+                </Frame>
+
+                <Frame BackgroundColor="White" CornerRadius="15">
+                    <StackLayout>
+                        <Entry x:Name="Senha" Placeholder="Informe a senha de acesso!" IsPassword="True" PlaceholderColor="Gray"/>
+                        <Entry x:Name="NovaSenha" Placeholder="Informe a nova senha de acesso!" IsPassword="True" PlaceholderColor="Gray"/>
+                    </StackLayout>
+                </Frame>
+
+                <Frame BackgroundColor="White" CornerRadius="15">
+                    <StackLayout>
+                        <Entry x:Name="Telefone" Keyboard="Telephone" Placeholder="Seu Telefone" PlaceholderColor="Gray"/>
+                        <Entry x:Name="Endereco" Placeholder="Seu Endereço" PlaceholderColor="Gray"/>
+                        <Entry x:Name="Numero" Placeholder="Número do Endereço" PlaceholderColor="Gray"/>
+                        <Entry x:Name="Bairro" Placeholder="Bairro do Endereço" PlaceholderColor="Gray"/>
+                        <Entry x:Name="Complemento" Placeholder="Ponto de Referência" PlaceholderColor="Gray"/>
+                    </StackLayout>
+                </Frame>
+
+                <Button x:Name="btOk" Clicked="btOk_Clicked" HeightRequest="38" Text="Confirmar" BackgroundColor="Transparent" FontAttributes="Bold" BorderColor="#632119" TextColor="#632119" CornerRadius="15" BorderWidth="1" />
+                <ActivityIndicator x:Name="indiCriando" Color="#632119" HorizontalOptions="Center" IsEnabled="True" IsRunning="True" IsVisible="False"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

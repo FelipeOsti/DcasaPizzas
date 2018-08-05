@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppRomagnole.Menu.MenuMaster"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             Padding="0"
+             Title="Menu">
+    <StackLayout>
+        <ListView x:Name="MenuItemsListView"
+                  SeparatorVisibility="None"
+                  HasUnevenRows="true"
+                  ItemSelected="ListView_ItemSelected"
+                  IsGroupingEnabled = "true"
+                  GroupDisplayBinding= "{Binding GroupName}" 
+                  ItemsSource="{Binding LstViewMenu}">
+            <ListView.Header>
+                <StackLayout Orientation="Horizontal" BackgroundColor="#373737" Padding="20">
+                    <StackLayout Orientation="Vertical">
+                        <Image HorizontalOptions="Start" x:Name="imgGrid" HeightRequest="40" WidthRequest="128" Margin="0,0,0,10" />
+                        <Label Text="BEM-VINDO(A)" TextColor="White" FontAttributes="Bold"/>
+                        <Label x:Name="lblNome" TextColor="#b9b9b9" FontSize="12"/>
+                    </StackLayout>
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                        <controls:CircleImage x:Name="imgUser" Aspect="AspectFill" WidthRequest="70" HeightRequest="70"/>
+                    </StackLayout>
+                </StackLayout>                                   
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" >
+                            <BoxView Color="Red" HeightRequest="24" WidthRequest="5" IsVisible="{Binding isSelected}"/>
+                            <BoxView Color="Transparent" HeightRequest="24" WidthRequest="5" IsVisible="{Binding isNotSelected}"/>
+                            <StackLayout Orientation="Horizontal" Padding="0,10,0,5" VerticalOptions="Center">
+                                <StackLayout Orientation="Horizontal" Padding="20,0,0,0">
+                                    <Image VerticalOptions="Start" WidthRequest="24" HeightRequest="24" Source="{Binding IconSource}"/>
+                                    <Label HorizontalOptions="FillAndExpand"                                    
+                                    VerticalTextAlignment="Center" 
+                                    Text="{Binding Title}"
+                                    FontSize="14"
+                                    TextColor="{Binding TitleColor}"/>
+                                </StackLayout>
+                            </StackLayout>  
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

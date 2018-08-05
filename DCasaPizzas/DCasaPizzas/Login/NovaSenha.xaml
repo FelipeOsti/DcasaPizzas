@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DCasaPizzas.Login.NovaSenha">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <Entry x:Name="dsEmail" Placeholder="Informe seu e-mail" PlaceholderColor="Gray" Keyboard="Email"/>
+            <Button x:Name="btNovaSenha" Text="Solicitar Nova Senha" BackgroundColor="Transparent" FontAttributes="Bold" BorderColor="#632119" TextColor="#632119" CornerRadius="15" BorderWidth="1" Clicked="btNovaSenha_Clicked"/>
+            <ActivityIndicator x:Name="actAguarde" Color="Gray" IsEnabled="True" IsRunning="True" IsVisible="False"/>
+            <Label x:Name="lblAguarde" TextColor="Gray" IsVisible="False" Text="Aguarde... O processo para gerar uma nova senha pode demorar um pouco..."/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

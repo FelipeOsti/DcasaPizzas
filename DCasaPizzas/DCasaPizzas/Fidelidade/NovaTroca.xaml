@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DCasaPizzas.Fidelidade.NovaTroca">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <Frame CornerRadius="15" BackgroundColor="White" VerticalOptions="StartAndExpand">
+                <StackLayout VerticalOptions="StartAndExpand">
+                    <StackLayout BackgroundColor="#a50b0b" Margin="-20,-20,-20,0" Padding="10" VerticalOptions="StartAndExpand">
+                        <Label Text="Produtos Selecionados para troca" TextColor="White"/>
+                    </StackLayout>
+                    <ListView x:Name="lstViewProdutos"
+                              SeparatorVisibility="None"
+                              HasUnevenRows="true"
+                              BackgroundColor="White">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Padding="8" Orientation="Horizontal">
+                                        <Label Text="{Binding DS_PRODUTO}" TextColor="Gray" HorizontalOptions="StartAndExpand" VerticalTextAlignment="Center" />
+                                        <Label Text="{Binding DS_TAMANHO}" TextColor="Gray" HorizontalOptions="EndAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="End"/>
+                                        <Label Text="{Binding DS_PONTOS}" TextColor="Gray" HorizontalOptions="EndAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="End"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button x:Name="btnConfirma" Text="Confirmar Troca" BorderRadius="15" BorderColor="#a50b0b" BackgroundColor="Transparent" TextColor="#a50b0b" BorderWidth="1" Clicked="btnConfirma_Clicked"/>
+                    <ActivityIndicator x:Name="indiTroca" IsEnabled="True" IsRunning="True" IsVisible="False" BackgroundColor="Transparent" Color="#a5060b"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

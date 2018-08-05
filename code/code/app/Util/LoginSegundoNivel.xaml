@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pin="clr-namespace:AppRomagnole.PIN"
+             x:Class="AppRomagnole.Util.LoginSegundoNivel">
+    <ContentPage.Content>
+        <pin:PinView          
+            Title="Digite seu PIN"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            BackgroundColor="#a80c1b"/>
+    </ContentPage.Content>
+</ContentPage>

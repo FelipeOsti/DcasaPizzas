@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DCasaPizzas.Fidelidade.Pedidos">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <Frame CornerRadius="15" BackgroundColor="White" VerticalOptions="FillAndExpand">
+                <StackLayout VerticalOptions="FillAndExpand">
+                    <StackLayout BackgroundColor="#a50b0b" Margin="-20,-20,-20,0" Padding="10">
+                        <Label Text="Meus Pedidos" TextColor="White"/>
+                    </StackLayout>
+                    <StackLayout BackgroundColor="White" VerticalOptions="FillAndExpand">
+                        <ActivityIndicator x:Name="indiCarregando" IsEnabled="True" IsRunning="True" IsVisible="{Binding IsBusy}" BackgroundColor="White" Color="#632119" HorizontalOptions="CenterAndExpand"/>
+                        <ListView x:Name="ListViewPedidos"
+                                  SeparatorVisibility="None"
+                                  HasUnevenRows="True"
+                                  ItemsSource="{Binding lstPedidos}"
+                                  IsGroupingEnabled="True"
+                                  VerticalOptions="FillAndExpand"
+                                  BackgroundColor="White">
+                            <ListView.GroupHeaderTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Orientation="Horizontal" Padding="10">
+                                            <Label Text="{Binding DS_IDPEDIDO}" TextColor="Black" FontSize="14" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,0,20,0"/>
+                                            <StackLayout HorizontalOptions="FillAndExpand">
+                                                <Label Text="{Binding DtPedidoDia}" FontSize="14" TextColor="Black" HorizontalTextAlignment="Center"/>
+                                                <Label Text="{Binding DtPedidoMesAno}" FontSize="10" TextColor="Black" HorizontalTextAlignment="Center"/>
+                                            </StackLayout>
+                                            <Label Text="{Binding DS_VLPEDIDO}" FontSize="14" TextColor="Green" FontAttributes="Bold" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.GroupHeaderTemplate>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Orientation="Horizontal" Padding="0,5,0,5">
+                                            <Label Text="{Binding DS_PRODUTO}" VerticalOptions="Center" HorizontalOptions="StartAndExpand" LineBreakMode="NoWrap"/>
+                                            <Label Text="{Binding DS_VLTOTAL}" VerticalOptions="Center" LineBreakMode="NoWrap" WidthRequest="120" HorizontalOptions="EndAndExpand" HorizontalTextAlignment="End"/>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

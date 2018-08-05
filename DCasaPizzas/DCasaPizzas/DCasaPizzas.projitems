@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{0831F903-7D96-4087-9718-C26FAFE7EF05}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>DCasaPizzas</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Fidelidade\Acumular.xaml.cs">
+      <DependentUpon>Acumular.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Fidelidade\MeusPontos.xaml.cs">
+      <DependentUpon>MeusPontos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Fidelidade\NovaTroca.xaml.cs">
+      <DependentUpon>NovaTroca.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Fidelidade\Pedidos.xaml.cs">
+      <DependentUpon>Pedidos.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Fidelidade.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Pedidos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Produto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\RequestWS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logic\Usuario.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Login\Configuracoes.xaml.cs">
+      <DependentUpon>Configuracoes.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Login\FacebookLogin.xaml.cs">
+      <DependentUpon>FacebookLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Login\NovaSenha.xaml.cs">
+      <DependentUpon>NovaSenha.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Login\NovoUsuario.xaml.cs">
+      <DependentUpon>NovoUsuario.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Menu\Menu.xaml.cs">
+      <DependentUpon>Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Menu\MenuDetail.xaml.cs">
+      <DependentUpon>MenuDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Menu\MenuMaster.xaml.cs">
+      <DependentUpon>MenuMaster.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Menu\MenuMenuItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Facebook.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\IConexaoWeb.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\IMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ItemPedido.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Pedido.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Produto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Token.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Trocas.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\UsuarioModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Util\ConexaoWeb.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Util\Message.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Login\FacebookLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Menu\Menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Menu\MenuDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Menu\MenuMaster.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Fidelidade\Acumular.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Login\NovoUsuario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Fidelidade\Pedidos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Fidelidade\MeusPontos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Fidelidade\NovaTroca.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Login\NovaSenha.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Login\Configuracoes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

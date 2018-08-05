@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:DCasaPizzas"
+             x:Class="DCasaPizzas.MainPage">
+    <ScrollView>
+        <StackLayout BackgroundColor="White">
+            <StackLayout BackgroundColor="White" VerticalOptions="Start">
+                <Image Source="capa_login.png" Aspect="AspectFill" Scale="1"/>
+            </StackLayout>
+            <StackLayout Padding="20" BackgroundColor="White" VerticalOptions="FillAndExpand" Margin="0,0,0,0">
+                <Entry Placeholder="E-mail ou CPF" PlaceholderColor="Gray" x:Name="usuar" Margin="20,0,20,0"/>
+                <Entry x:Name="sdsSenha" IsPassword="True" Placeholder="Senha" PlaceholderColor="Gray" x:FieldModifier="senha" Margin="20,0,20,0"/>
+                <StackLayout Margin="0,20,0,0">
+                    <Button x:Name="SemCadastro" Text="Não possuo cadastro" BackgroundColor="Transparent" FontSize="8" TextColor="Gray" HorizontalOptions="EndAndExpand" BorderWidth="0" Margin="0,-10,20,-10" Clicked="SemCadastro_Clicked"/>
+                    <Button x:Name="btLogin" Text="Entrar" TextColor="#632119" HeightRequest="38" Clicked="btLogin_Clicked"  BackgroundColor="Transparent" Margin="20,0,20,0" FontAttributes="Bold" BorderColor="#632119" CornerRadius="15" BorderWidth="1"/>
+                    <Button x:Name="btFacebook" Text="Entrar com Facebook" HeightRequest="38" TextColor="White" BackgroundColor="#3b5998" Margin="20,0,20,0" CornerRadius="15"/>
+                    <Button x:Name="EsqueciSenha" Text="Esqueci minha Senha" BackgroundColor="Transparent" FontSize="8" TextColor="Red" HorizontalOptions="EndAndExpand" BorderWidth="0" Margin="0,-10,20,-10" Clicked="EsqueciSenha_Clicked" />
+                    <ActivityIndicator x:Name="indiLogin" IsEnabled="True" IsRunning="True" IsVisible="False" Color="#632119"/>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
