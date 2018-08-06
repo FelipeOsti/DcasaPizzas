@@ -3,92 +3,110 @@
     {
       "scale": "2x",
       "size": "20x20",
-      "idiom": "iphone"
+      "idiom": "iphone",
+      "filename": "logoDcasa40.png"
     },
     {
       "scale": "3x",
       "size": "20x20",
-      "idiom": "iphone"
+      "idiom": "iphone",
+      "filename": "logoDcasa60.png"
     },
     {
       "scale": "2x",
       "size": "29x29",
-      "idiom": "iphone"
+      "idiom": "iphone",
+      "filename": "logoDcasa58.png"
     },
     {
       "scale": "3x",
       "size": "29x29",
-      "idiom": "iphone"
+      "idiom": "iphone",
+      "filename": "logoDcasa87.png"
     },
     {
       "scale": "2x",
       "size": "40x40",
-      "idiom": "iphone"
+      "idiom": "iphone",
+      "filename": "logoDcasa80.png"
     },
     {
       "scale": "3x",
       "size": "40x40",
-      "idiom": "iphone"
+      "idiom": "iphone",
+      "filename": "logoDcasa120.png"
     },
     {
       "scale": "2x",
       "size": "60x60",
-      "idiom": "iphone"
+      "idiom": "iphone",
+      "filename": "logoDcasa120.png"
     },
     {
       "scale": "3x",
       "size": "60x60",
-      "idiom": "iphone"
+      "idiom": "iphone",
+      "filename": "logoDcasa180.png"
     },
     {
       "scale": "1x",
       "size": "20x20",
-      "idiom": "ipad"
+      "idiom": "ipad",
+      "filename": "logoDcasa20.png"
     },
     {
       "scale": "2x",
       "size": "20x20",
-      "idiom": "ipad"
+      "idiom": "ipad",
+      "filename": "logoDcasa40.png"
     },
     {
       "scale": "1x",
       "size": "29x29",
-      "idiom": "ipad"
+      "idiom": "ipad",
+      "filename": "logoDcasa29.png"
     },
     {
       "scale": "2x",
       "size": "29x29",
-      "idiom": "ipad"
+      "idiom": "ipad",
+      "filename": "logoDcasa58.png"
     },
     {
       "scale": "1x",
       "size": "40x40",
-      "idiom": "ipad"
+      "idiom": "ipad",
+      "filename": "logoDcasa40.png"
     },
     {
       "scale": "2x",
       "size": "40x40",
-      "idiom": "ipad"
+      "idiom": "ipad",
+      "filename": "logoDcasa80.png"
     },
     {
       "scale": "1x",
       "size": "76x76",
-      "idiom": "ipad"
+      "idiom": "ipad",
+      "filename": "logoDcasa76.png"
     },
     {
       "scale": "2x",
       "size": "76x76",
-      "idiom": "ipad"
+      "idiom": "ipad",
+      "filename": "logoDcasa152.png"
     },
     {
       "scale": "2x",
       "size": "83.5x83.5",
-      "idiom": "ipad"
+      "idiom": "ipad",
+      "filename": "logoDcasa167.png"
     },
     {
       "scale": "1x",
       "size": "1024x1024",
-      "idiom": "ios-marketing"
+      "idiom": "ios-marketing",
+      "filename": "logoDcasa1024.png"
     }
   ],
   "properties": {},

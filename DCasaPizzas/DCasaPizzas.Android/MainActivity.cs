@@ -1,5 +1,7 @@
 ﻿using System;
-
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
@@ -21,6 +23,7 @@ namespace DCasaPizzas.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
+            AppCenter.Start("1101b9f9-e02b-46e6-8122-b324daa58c71", typeof(Analytics), typeof(Crashes));
 
             LoadApplication(new App());
         }

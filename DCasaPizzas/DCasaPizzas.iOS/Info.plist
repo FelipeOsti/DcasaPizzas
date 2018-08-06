@@ -54,5 +54,7 @@
 	<string>Este App precisa acessar a camera para ler o QR-CODE</string>
 	<key>UIMainStoryboardFile</key>
 	<string>LaunchScreen</string>
+	<key>XSAppIconAssets</key>
+	<string>Resources/Media.xcassets/AppIcons.appiconset</string>
 </dict>
 </plist>
