@@ -32,9 +32,6 @@ namespace DCasaPizzas.iOS
 
             ZXing.Net.Mobile.Forms.iOS.Platform.Init();
 
-
-            AppCenter.Start("fd3abbc0-aba1-43f1-9c5a-8534ecebc73b",
-                              typeof(Analytics), typeof(Crashes));
             AppCenter.Start("fd3abbc0-aba1-43f1-9c5a-8534ecebc73b", typeof(Analytics), typeof(Crashes));
 
             return base.FinishedLaunching(app, options);
