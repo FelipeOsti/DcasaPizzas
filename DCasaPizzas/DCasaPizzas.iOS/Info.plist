@@ -57,6 +57,6 @@
 	<key>XSAppIconAssets</key>
 	<string>Resources/Media.xcassets/AppIcons.appiconset</string>
 	<key>MinimumOSVersion</key>
-	<string>10.0</string>
+	<string>10</string>
 </dict>
 </plist>
