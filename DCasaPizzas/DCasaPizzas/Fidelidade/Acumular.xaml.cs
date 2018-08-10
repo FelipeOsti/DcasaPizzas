@@ -53,7 +53,7 @@ namespace DCasaPizzas.Fidelidade
 
         private async void OpenScaner()
         {
-            var ScannerPage = new ZXingScannerPage() { Title = "Aponde para o QR-CODE" };
+            var ScannerPage = new ZXingScannerPage() { Title = "Aponte para o QR-CODE" };
 
             ScannerPage.OnScanResult += (result) =>
             {
