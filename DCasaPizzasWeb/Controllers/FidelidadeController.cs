@@ -158,7 +158,7 @@ namespace DCasaPizzasWeb.Controllers
                         }
                     }
 
-                    trocas = con.ExecQuery("select * from solari.PE_TROCA where DT_CONFIRMA is null and DT_CANCELA is null and ID_USUARIO = " + v);
+                    trocas = con.ExecQuery("select * from solari.PE_TROCA where DT_CANCELA is null and ID_USUARIO = " + v);
                     if(trocas.HasRows)
                     {
                         while (trocas.Read())
