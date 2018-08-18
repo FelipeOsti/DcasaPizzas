@@ -34,14 +34,17 @@ namespace DCasaPizzas.Menu
             }
             else
             {
-                var page = (Page)Activator.CreateInstance(item.TargetType);
-                page.Title = item.Title;
-
-                //Detail = new NavigationPage(page);
-                await Detail.Navigation.PushAsync(page, true);
+                await abrirNovaPagina(item);
             }
             IsPresented = false;
             MasterPage.ListView.SelectedItem = null;
+        }
+
+        private async Task abrirNovaPagina(MenuMenuItem item)
+        {
+            var page = (Page)Activator.CreateInstance(item.TargetType);
+            page.Title = item.Title;
+            await Detail.Navigation.PushAsync(page, true);
         }
     }
 }

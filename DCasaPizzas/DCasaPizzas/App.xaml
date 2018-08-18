@@ -4,7 +4,17 @@
              x:Class="DCasaPizzas.App">
 	<Application.Resources>
 
-		<!-- Application resource dictionary -->
+        <ResourceDictionary>
+            <Color x:Key="MainColor">#6e1213</Color>
+            <Color x:Key="MainBarTextColor">White</Color>
+
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource MainColor}" />
+                <Setter Property="BarTextColor" Value="{StaticResource MainBarTextColor}" />
+            </Style>
+        </ResourceDictionary>
+
+        <!-- Application resource dictionary -->
 
 	</Application.Resources>
 </Application>

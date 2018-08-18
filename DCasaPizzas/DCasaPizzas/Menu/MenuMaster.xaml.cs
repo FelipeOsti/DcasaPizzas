@@ -21,7 +21,10 @@ namespace DCasaPizzas.Menu
         {
             InitializeComponent();
 
-            Icon = "menu.png";
+            string img = "menu.png";
+
+            if (Device.RuntimePlatform == Device.iOS) Icon = img;
+            NavigationPage.SetTitleIcon(this, img);
 
             lblNome.Text = "Ola, "+App.sdsNome;
 

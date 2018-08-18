@@ -90,22 +90,29 @@ namespace DCasaPizzas.Login
                 await user.CriarUsuario(new UsuarioModel() { DS_EMAIL = infoFace.Email, NM_NOME = infoFace.Name,BO_FACEBOOK = "T" },false);
                 App.IdUsuario = await user.GetIDUsuario(infoFace.Email);
             }
-            catch
+            catch(Exception e)
             {
-                await DisplayAlert("Falha", "Falha ao realizar login com Facebook", "Tentar Novamente");
+                await DisplayAlert("Falha", "Falha ao realizar login com Facebook"+e.Message, "Tentar Novamente");
             }
         }
 
         public async Task<string> GetFacebookProfile(string accesToken)
         {
-            var requestUrl = "https://graph.facebook.com/v2.12/me/" +
-                "?fields=name,picture,cover,age_range,devices,email,gender,is_verified" +
-                "&access_token=" + accesToken;
+            try
+            {
+                var requestUrl = "https://graph.facebook.com/v2.12/me/" +
+                    "?fields=name,picture,cover,age_range,devices,email,gender,is_verified" +
+                    "&access_token=" + accesToken;
 
-            var httpClient = new HttpClient();
-            var response = await httpClient.GetStringAsync(requestUrl);
+                var httpClient = new HttpClient();
+                var response = await httpClient.GetStringAsync(requestUrl);
 
-            return response;
+                return response;
+            }
+            catch ( Exception e)
+            {
+                throw;
+            }
         }
 
         private string ExtractAccessToken(string url)

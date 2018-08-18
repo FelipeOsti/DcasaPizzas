@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -26,7 +27,10 @@ namespace DCasaPizzasWeb.Controllers
 
                 foreach (var pedido in pedidos)
                 {
-                    con.ExecCommand("insert into solari.PE_PEDIDO values(GETDATE(),null,'" + pedido.DS_CLIENTE + "'," + pedido.VL_PEDIDO + ")");
+
+                    NumberFormatInfo nfi = new NumberFormatInfo();
+                    nfi.NumberDecimalSeparator = ".";
+                    con.ExecCommand("insert into solari.PE_PEDIDO values(GETDATE(),null,'" + pedido.DS_CLIENTE + "'," + pedido.VL_PEDIDO.ToString(nfi) + ")");
 
                     if (Qpedido != null) {
                         if (!Qpedido.IsClosed)
@@ -36,13 +40,13 @@ namespace DCasaPizzasWeb.Controllers
                         }
                     }
 
-                    Qpedido = con.ExecQuery("select max(ID_PEDIDO) as ID_PEDIDO from solari.PE_PEDIDO where DS_CLIENTE = '" + pedido.DS_CLIENTE + "' and VL_PEDIDO = " + pedido.VL_PEDIDO);
+                    Qpedido = con.ExecQuery("select max(ID_PEDIDO) as ID_PEDIDO from solari.PE_PEDIDO where DS_CLIENTE = '" + pedido.DS_CLIENTE + "' and VL_PEDIDO = " + pedido.VL_PEDIDO.ToString(nfi));
                     Qpedido.Read();
                     nidPedido = Convert.ToInt64(Qpedido.GetValue(Qpedido.GetOrdinal("ID_PEDIDO")));
 
                     foreach (var item in pedido.itens)
                     {
-                        con.ExecCommand("insert into solari.PE_ITEMPEDIDO values(" + nidPedido + "," + item.CD_PRODUTO + ",'" + item.DS_PRODUTO + "'," + item.QT_PRODUTO + "," + item.VL_UNITARIO + "," + item.VL_TOTAL + ")");
+                        con.ExecCommand("insert into solari.PE_ITEMPEDIDO values(" + nidPedido + ",'" + item.CD_PRODUTO + "','" + item.DS_PRODUTO + "'," + item.QT_PRODUTO.ToString(nfi) + "," + item.VL_UNITARIO.ToString(nfi) + "," + item.VL_TOTAL.ToString(nfi) + ")");
                     }                  
                 }
 

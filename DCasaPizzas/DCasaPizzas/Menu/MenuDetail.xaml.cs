@@ -95,10 +95,13 @@ namespace DCasaPizzas.Menu
 
             double nqtPontos = 0;
 
-            foreach(var prod in Produtos)
+            foreach (var prod in Produtos)
             {
-                if (prod.BO_SELECTED) lstProd.Add(prod);
-                nqtPontos += prod.NR_PONTOS;
+                if (prod.BO_SELECTED)
+                {
+                    lstProd.Add(prod);
+                    nqtPontos += prod.NR_PONTOS;
+                }
             }
 
             if(nqtPontos < 400)
@@ -108,7 +111,7 @@ namespace DCasaPizzas.Menu
             }
 
             await Navigation.PushAsync(new NovaTroca(lstProd), true);
-            GetProdutos();
+            await GetProdutos();
         }
     }
 }

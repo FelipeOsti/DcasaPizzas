@@ -25,7 +25,7 @@
 
             <Button Clicked="btAcumular_Clicked"  HeightRequest="38" VerticalOptions="EndAndExpand" Text="Acumular Novos Pontos" CornerRadius="15" BackgroundColor="Transparent" BorderColor="#a50b0b" BorderWidth="1" TextColor="#a50b0b"/>
 
-            <Frame CornerRadius="15" BackgroundColor="White" Padding="5">
+            <Frame BackgroundColor="White" Padding="5" Margin="-5,0,-5,-5">
                 <StackLayout>
                     <StackLayout BackgroundColor="#a50b0b" Margin="-5,-5,-5,0" Padding="5">
                         <Label Text="Troque sua pontuação" TextColor="White"/>
@@ -41,29 +41,27 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <StackLayout Orientation="Horizontal" Padding="5" HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Horizontal" Padding="2" HorizontalOptions="FillAndExpand">
                                         <Grid HorizontalOptions="FillAndExpand">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="25"/>
+                                                <ColumnDefinition Width="17"/>
                                             </Grid.ColumnDefinitions>
-                                            <Label Grid.Column="0" Text="{Binding DS_PRODUTO}" TextColor="Gray" LineBreakMode="NoWrap" />
-                                            <Label Grid.Column="1" Text="{Binding DS_TAMANHO}" TextColor="Gray" HorizontalOptions="EndAndExpand"  HorizontalTextAlignment="End"/>
-                                            <Label Grid.Column="2" Text="{Binding DS_PONTOS}" TextColor="Gray" HorizontalOptions="EndAndExpand" HorizontalTextAlignment="End"/>
+                                            <Label Grid.Column="0" Text="{Binding DS_PRODUTO}" TextColor="Gray" LineBreakMode="NoWrap" FontSize="12"/>
+                                            <Label Grid.Column="1" Text="{Binding DS_TAMANHO}" TextColor="Gray" HorizontalOptions="EndAndExpand" FontSize="12" HorizontalTextAlignment="End"/>
+                                            <Label Grid.Column="2" Text="{Binding DS_PONTOS}" TextColor="Gray" HorizontalOptions="EndAndExpand" FontSize="12" HorizontalTextAlignment="End"/>
                                             <Image Grid.Column="3" Source="ok.png" IsVisible="{Binding BO_SELECTED}" HorizontalOptions="EndAndExpand" HeightRequest="18" VerticalOptions="Center"/>
                                         </Grid>
                                     </StackLayout>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
-                        <ListView.Footer>
-                            <StackLayout Padding="10">
-                                <Button x:Name="btTroca" Text="Realizar Troca" BackgroundColor="Transparent" BorderRadius="15" BorderWidth="1" BorderColor="#a50b0b" TextColor= "#a50b0b" HeightRequest="38" Clicked="btTroca_Clicked"/>
-                            </StackLayout>
-                        </ListView.Footer>
                     </ListView>
+                    <StackLayout Padding="10,0,10,5">
+                        <Button x:Name="btTroca" Text="Realizar Troca" BackgroundColor="Transparent" BorderRadius="15" BorderWidth="1" BorderColor="#a50b0b" TextColor= "#a50b0b" HeightRequest="38" Clicked="btTroca_Clicked"/>
+                    </StackLayout>
                 </StackLayout>
             </Frame>
         </StackLayout>

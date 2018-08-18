@@ -57,6 +57,7 @@
     <MtouchArch>ARM64</MtouchArch>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
+    <MtouchSdkVersion>11.2</MtouchSdkVersion>
     <CodesignEntitlements>
     </CodesignEntitlements>
     <CodesignProvision />
@@ -73,6 +74,7 @@
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchSdkVersion>11.2</MtouchSdkVersion>
     <CodesignProvision />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
@@ -80,6 +82,7 @@
     <Optimize>True</Optimize>
     <OutputPath>bin\iPhone\Ad-Hoc</OutputPath>
     <ErrorReport>prompt</ErrorReport>
+    <MtouchSdkVersion>11.2</MtouchSdkVersion>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
@@ -96,13 +99,13 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignProvision>
-    </CodesignProvision>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignProvision>Distribution Profile - Solari</CodesignProvision>
+    <CodesignKey>iPhone Distribution: Felipe Osti (33792SN7X8)</CodesignKey>
     <CodesignEntitlements>
     </CodesignEntitlements>
     <CodesignExtraArgs />
     <CodesignResourceRules />
+    <BuildIpa>true</BuildIpa>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
@@ -136,7 +139,9 @@
     <BundleResource Include="Resources\Icon-Small.png" />
     <BundleResource Include="Resources\Icon-Small%402x.png" />
     <BundleResource Include="Resources\Icon-Small%403x.png" />
-    <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <InterfaceDefinition Include="Resources\LaunchScreen.storyboard">
+      <SubType>Designer</SubType>
+    </InterfaceDefinition>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -172,10 +177,9 @@
     <BundleResource Include="Resources\qrcode.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\pizza.jpg">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    <BundleResource Include="Resources\pizza.jpg">
       <SubType>Designer</SubType>
-    </AndroidResource>
+    </BundleResource>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\icon.png" />
@@ -187,6 +191,23 @@
     <BundleResource Include="Resources\Icon-83.5%402x.png" />
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\capa_login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ok.png">
+      <SubType>Designer</SubType>
+    </BundleResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\menu%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\menu%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
     <ImageAsset Include="Media.xcassets\AppIcons.appiconset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -194,6 +215,9 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Media.xcassets\AppIcons.appiconset\logoDcasa120.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\logoDcasa1201.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Media.xcassets\AppIcons.appiconset\logoDcasa152.png">
@@ -214,7 +238,16 @@
     <ImageAsset Include="Media.xcassets\AppIcons.appiconset\logoDcasa40.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\logoDcasa401.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\logoDcasa402.png">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Media.xcassets\AppIcons.appiconset\logoDcasa58.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\logoDcasa581.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Media.xcassets\AppIcons.appiconset\logoDcasa60.png">
@@ -224,6 +257,9 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Media.xcassets\AppIcons.appiconset\logoDcasa80.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Media.xcassets\AppIcons.appiconset\logoDcasa801.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Media.xcassets\AppIcons.appiconset\logoDcasa87.png">

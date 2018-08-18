@@ -6,7 +6,7 @@
         <StackLayout Padding="10">
             <Frame CornerRadius="15" BackgroundColor="White" VerticalOptions="FillAndExpand">
                 <StackLayout VerticalOptions="FillAndExpand">
-                    <StackLayout BackgroundColor="#a50b0b" Margin="-20,-20,-20,0" Padding="10">
+                    <StackLayout BackgroundColor="#a50b0b" Margin="-20,-20,-20,0" Padding="3">
                         <Label Text="Meus Pedidos" TextColor="White"/>
                     </StackLayout>
                     <StackLayout BackgroundColor="White" VerticalOptions="FillAndExpand">
