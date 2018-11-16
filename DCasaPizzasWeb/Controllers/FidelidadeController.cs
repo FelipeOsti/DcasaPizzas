@@ -20,6 +20,8 @@ namespace DCasaPizzasWeb.Controllers
         public double GetPontos(string sdsParam)
         {
 
+            if (sdsParam == "" || sdsParam == null) return 0;
+
             UsuarioController user = new UsuarioController();
             AtualizarPontos(user.GetIDUsuario(sdsParam));
 
@@ -53,6 +55,8 @@ namespace DCasaPizzasWeb.Controllers
         [HttpGet]
         public void AcumulaPontos(string sdsParam, int nnrPontos)
         {
+            if (sdsParam == "" || sdsParam == null) return;
+
             Conexao con = new Conexao();
             SqlDataReader usuar = null;
             SqlDataReader pontos = null;

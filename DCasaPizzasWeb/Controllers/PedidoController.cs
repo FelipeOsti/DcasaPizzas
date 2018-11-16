@@ -107,7 +107,7 @@ namespace DCasaPizzasWeb.Controllers
                             ID_PEDIDO = nidPedido,
                             DS_CLIENTE = sdsNome,
                             VL_PEDIDO = nvlPedido,
-                            DT_PEDIDO = ddtPedido,
+                            DT_PEDIDO = ddtPedido.ToString(), //ddtPedido.Day + "/" + ddtPedido.Month + "/" + ddtPedido.Year,
                             itens = new List<ItemPedido>()
                         });
 

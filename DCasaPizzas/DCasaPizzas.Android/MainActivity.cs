@@ -23,7 +23,7 @@ namespace DCasaPizzas.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
-            AppCenter.Start("1101b9f9-e02b-46e6-8122-b324daa58c71", typeof(Analytics), typeof(Crashes));
+            //AppCenter.Start("1101b9f9-e02b-46e6-8122-b324daa58c71", typeof(Analytics), typeof(Crashes));
 
             LoadApplication(new App());
         }

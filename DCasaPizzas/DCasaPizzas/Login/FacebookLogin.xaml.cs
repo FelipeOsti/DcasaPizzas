@@ -28,7 +28,7 @@ namespace DCasaPizzas.Login
             Login();
 		}
 
-        private void Login()
+        public void Login()
         {
             string apiRequest = "https://www.facebook.com/v2.12/dialog/oauth?client_id=" + ClientID +
             "&display=popup&response_type=token&redirect_uri=https://www.facebook.com/connect/login_success.html&scope=email";
@@ -46,28 +46,36 @@ namespace DCasaPizzas.Login
 
         private async void WebView_Navigated(object sender, WebNavigatedEventArgs e)
         {
-            accesToken = ExtractAccessToken(e.Url);
-            if (accesToken != "")
+            try
             {
-                if(Application.Current.Properties.ContainsKey("tokenFace"))
+                accesToken = ExtractAccessToken(e.Url);
+                if (accesToken != "")
                 {
-                    Application.Current.Properties["tokenFace"] = accesToken;
+                    if (Application.Current.Properties.ContainsKey("tokenFace"))
+                    {
+                        Application.Current.Properties["tokenFace"] = accesToken;
+                    }
+                    else
+                    {
+                        Application.Current.Properties.Add("tokenFace", accesToken);
+                    }
+
+                    webView.IsVisible = false;
+                    stackLoading.IsVisible = true;
+                    await GetDadosFace();
+                    MainPage.AbrirMenu();
+                    stackLoading.IsVisible = false;
                 }
                 else
                 {
-                    Application.Current.Properties.Add("tokenFace", accesToken);
+                    stackLoading.IsVisible = false;
+                    webView.IsVisible = true;
                 }
-
-                webView.IsVisible = false;
-                stackLoading.IsVisible = true;
-                await GetDadosFace();
-                MainPage.AbrirMenu();
-                stackLoading.IsVisible = false;
             }
-            else
+            catch
             {
-                stackLoading.IsVisible = false;
-                webView.IsVisible = true;
+                await Navigation.PopAsync(true);
+                stackLoading.IsVisible = true;
             }
         }
 
@@ -86,13 +94,19 @@ namespace DCasaPizzas.Login
                     App.sdsEmail = infoFace.Email;
 
                 }
+
+                if(infoFace.Email == "" || infoFace.Email == null)
+                {
+                    throw new Exception("Não foi possível obter seu e-mail atravéz do facebook! Favor realizar o cadastro manualmente.");
+                }
+
                 Usuario user = new Usuario();
                 await user.CriarUsuario(new UsuarioModel() { DS_EMAIL = infoFace.Email, NM_NOME = infoFace.Name,BO_FACEBOOK = "T" },false);
                 App.IdUsuario = await user.GetIDUsuario(infoFace.Email);
             }
             catch(Exception e)
             {
-                await DisplayAlert("Falha", "Falha ao realizar login com Facebook"+e.Message, "Tentar Novamente");
+                await DisplayAlert("Falha", "Falha ao realizar login com Facebook - "+e.Message, "Ok");
             }
         }
 

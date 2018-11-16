@@ -160,6 +160,9 @@
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
+    <Reference Include="Uol.PagSeguro, Version=2.7.0.0, Culture=neutral, PublicKeyToken=f3c2cf8865d9ba24, processorArchitecture=MSIL">
+      <HintPath>..\..\..\SolariClientes\packages\Uol.PagSeguro.2.7.1\lib\Uol.PagSeguro.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
@@ -197,21 +200,42 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\ClienteInternoController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\FidelidadeController.cs" />
+    <Compile Include="Controllers\FinanceiroController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LicencaController.cs" />
+    <Compile Include="Controllers\PagSeguroController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
+    <Compile Include="Controllers\PlanosController.cs" />
     <Compile Include="Controllers\PoliticaPrivacidadeController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
+    <Compile Include="Controllers\RetornoPagamentoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ClientesAPP.cs" />
+    <Compile Include="Models\CM_PLANOModel.cs" />
+    <Compile Include="Models\CM_PROJETOModel.cs" />
     <Compile Include="Models\Conexao.cs" />
+    <Compile Include="Models\CR_DOCUMModel.cs" />
+    <Compile Include="Models\CR_LIQUIDACAOModel.cs" />
+    <Compile Include="Models\CR_PARCELAModel.cs" />
+    <Compile Include="Models\DocumentoFinModel.cs" />
     <Compile Include="Models\Erro.cs" />
+    <Compile Include="Models\IN_CHAVELICENCAModel.cs" />
+    <Compile Include="Models\IN_CLIENTEINTERNOModel.cs" />
     <Compile Include="Models\ItemPedido.cs" />
+    <Compile Include="Models\PagSeguro\ListPaymentMethodGroups.cs" />
+    <Compile Include="Models\PagSeguro\ListPaymentMethodNames.cs" />
+    <Compile Include="Models\PagSeguro\ClienteModel.cs" />
+    <Compile Include="Models\PagSeguro\EnderecoModel.cs" />
+    <Compile Include="Models\PagSeguro\PagSeguroModel.cs" />
+    <Compile Include="Models\PagSeguro\ProdutoModel.cs" />
+    <Compile Include="Models\PagSeguro\RetornoPagamentoModel.cs" />
     <Compile Include="Models\Pedido.cs" />
     <Compile Include="Models\Produto.cs" />
     <Compile Include="Models\Token.cs" />
@@ -221,6 +245,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Configuration\PagSeguroConfig.xml" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />

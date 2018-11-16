@@ -21,7 +21,7 @@ namespace DCasaPizzas
             try
             {
                 InitializeComponent();
-                btFacebook.Clicked += BtLogin_ClickedAsync;
+                //btFacebook.Clicked += BtLogin_ClickedAsync;
                 Title = "Identifique-se";
 
                 VerificaLoginAuto();
@@ -32,16 +32,17 @@ namespace DCasaPizzas
             }
         }
 
-        private async void VerificaLoginAuto()
+        public void VerificaLoginAuto()
         {
             if (Application.Current.Properties.ContainsKey("usuar"))    
             {
+                App.bboLoginAuto = true;
                 usuar.Text = (string)Application.Current.Properties["usuar"];
                 sdsSenha.Text = (string)Application.Current.Properties["senha"];
                 btLogin_Clicked(this, new EventArgs());
-            }
-            if (Application.Current.Properties.ContainsKey("tokenFace"))
+            }else if (Application.Current.Properties.ContainsKey("tokenFace"))
             {
+                App.bboLoginAuto = true;
                 BtLogin_ClickedAsync(this, new EventArgs());
             }
         }
@@ -72,6 +73,12 @@ namespace DCasaPizzas
                 var ok = await user.VerificaUsuarioSenha(new Models.UsuarioModel { DS_EMAIL = usuar.Text, DS_SENHA = sdsSenha.Text });
                 if (ok)
                 {
+                    if (await user.SenhaProvisoria())
+                    {
+                        await DisplayAlert("Senha Provisória", "Você está utilizando a senha provisória! Considere mudar", "Vou Mudar em breve");
+                    }
+
+                    App.LoggedApp = true;
                     if (Application.Current.Properties.ContainsKey("usuar"))
                     {
                         Application.Current.Properties["usuar"] = usuar.Text;
@@ -87,16 +94,11 @@ namespace DCasaPizzas
                     App.sdsNome = await user.GetNome();
                     App.IdUsuario = await user.GetIDUsuario(usuar.Text);
                     AbrirMenu();
-
-
-                    if (await user.SenhaProvisoria())
-                    {
-                        await DisplayAlert("Senha Provisória", "Você está utilizando a senha provisória! Considere mudar", "Vou Mudar em breve");
-                    }
+                   
                 }
                 else
                 {
-                    await DisplayAlert("Falha", "Usuário ou senha inválido", "Ok");
+                    await DisplayAlert("Falha", "Usuário ou senha inválidos", "Ok");
                 }
                 btLogin.IsEnabled = true;
                 indiLogin.IsVisible = false;

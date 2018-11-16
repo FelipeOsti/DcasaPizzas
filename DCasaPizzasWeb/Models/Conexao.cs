@@ -72,7 +72,7 @@ namespace DCasaPizzasWeb.Models
             {
                 Erro.GerarErro(ex.Source + " - " + ex.Message, "Executar Query MySQL");
                 throw;
-            }  
+            }
         }
 
         public bool ExecCommand(string sdsSql)

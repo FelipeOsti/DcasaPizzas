@@ -96,6 +96,19 @@ namespace DCasaPizzasWeb.Controllers
                     };
                    
                 }
+                else
+                {
+                    retorno = new Produto()
+                    {
+                        ID_PRODUTO = nidProduto,
+                        CD_PRODUTO = "0",
+                        DS_PRODUTO = "Nao encontrado",
+                        DS_TAMANHO = "Unico",
+                        NR_PONTOS = 0,
+                        VL_VALOR = 0,
+                        DS_CATEGORIA = ""
+                    };
+                }
 
                 return retorno;
             }

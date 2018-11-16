@@ -26,15 +26,20 @@ namespace DCasaPizzas.Menu
 
             if (item.Id == 9)
             {
+                App.LoggedApp = false;
                 if (Application.Current.Properties.ContainsKey("usuar")) Application.Current.Properties.Remove("usuar");
                 if (Application.Current.Properties.ContainsKey("senha")) Application.Current.Properties.Remove("senha");
                 if (Application.Current.Properties.ContainsKey("tokenFace")) Application.Current.Properties.Remove("tokenFace");
                 Application.Current.Properties.Clear();
                 App.Current.MainPage = new NavigationPage(new DCasaPizzas.MainPage());
             }
-            else
+            else if(App.LoggedApp)
             {
                 await abrirNovaPagina(item);
+            }
+            else
+            {
+                App.Current.MainPage = new NavigationPage(new DCasaPizzas.MainPage());
             }
             IsPresented = false;
             MasterPage.ListView.SelectedItem = null;

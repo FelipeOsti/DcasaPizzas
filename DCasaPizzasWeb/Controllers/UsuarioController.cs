@@ -259,7 +259,7 @@ namespace DCasaPizzasWeb.Controllers
                 string sboProv = "F";
                 if (bboProv) sboProv = "T";
 
-                con.ExecCommand("update solari.IN_USUARIO set DS_SENHA = '" + senhaCripto + "', BO_SENHAPROV = '" + sboProv + "' where DS_EMAIL = '" + sdsEmail + "'");
+                con.ExecCommand("update solari.IN_USUARIO set BO_FACEBOOK='F', DS_SENHA = '" + senhaCripto + "', BO_SENHAPROV = '" + sboProv + "' where DS_EMAIL = '" + sdsEmail + "'");
             }
             catch
             {

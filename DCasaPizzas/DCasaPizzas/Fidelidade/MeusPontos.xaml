@@ -47,7 +47,7 @@
                 <StackLayout>
                     <Frame CornerRadius="15" BackgroundColor="White">
                         <StackLayout>
-                            <StackLayout BackgroundColor="#a50b0b" Margin="-20,-20,-20,0" Padding="10">
+                            <StackLayout BackgroundColor="#a50b0b" Margin="-20,-20,-20,0" Padding="5">
                                 <Label Text="Saldo a Expirar ou Expirado - 30 dias" TextColor="White"/>
                             </StackLayout>
                             <StackLayout BackgroundColor="White">

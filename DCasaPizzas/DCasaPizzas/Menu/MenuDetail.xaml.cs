@@ -52,11 +52,20 @@ namespace DCasaPizzas.Menu
 
         public async Task GetPontos()
         {
-            Logic.Fidelidade fidelidade = new Logic.Fidelidade();
-            var pontos = await fidelidade.GetPontos(App.sdsEmail);
-            nnrPontos = pontos;
-            nrPontos.Text = pontos.ToString();
-
+            double pontos = 0;
+            if (!App.LoggedApp)
+            {
+                nrPontos.Text = "0";
+                pontos = 0;
+                nnrPontos = 0;
+            }
+            else
+            {
+                Logic.Fidelidade fidelidade = new Logic.Fidelidade();
+                pontos = await fidelidade.GetPontos(App.sdsEmail);
+                nnrPontos = pontos;
+                nrPontos.Text = pontos.ToString();
+            }
             if(pontos < 400)
             {
                 lblMsgTroca.IsVisible = true;
@@ -71,7 +80,10 @@ namespace DCasaPizzas.Menu
 
         private async void btAcumular_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new Acumular(), true);
+            if (App.LoggedApp)
+                await Navigation.PushAsync(new Acumular(), true);
+            else
+                await DisplayAlert("Login", "Realize o Login ou Cadastre-se para prosseguir", "OK");
         }
 
 
@@ -104,11 +116,11 @@ namespace DCasaPizzas.Menu
                 }
             }
 
-            if(nqtPontos < 400)
-            {
-                await DisplayAlert("Que pena", "Pontuação minima para troca é de [ 400 ] pontos", "Utilizar mais pontos");
-                return;
-            }
+            //if(nqtPontos < 400)
+            //{
+            //    await DisplayAlert("Que pena", "Pontuação minima para troca é de [ 400 ] pontos", "Utilizar mais pontos");
+            //   return;
+            //}
 
             await Navigation.PushAsync(new NovaTroca(lstProd), true);
             await GetProdutos();

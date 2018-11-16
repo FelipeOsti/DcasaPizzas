@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace DCasaPizzas.Logic
                 if (user.DS_SENHA == "" || user.DS_SENHA == null)
                     user.BO_FACEBOOK = "T";                    
                 else
-                    user.DS_SENHA = await CriptografaSHA256(user.DS_SENHA);
+                    user.DS_SENHA = CriptografaSHA256(user.DS_SENHA);
 
                 string sdsUrl = "Usuario/VerificaUsuarioExiste?sdsEmail=" + user.DS_EMAIL;
                 var response = await RequestWS.RequestGET(sdsUrl);
@@ -73,17 +74,21 @@ namespace DCasaPizzas.Logic
             return false;
         }
 
-        public async Task<string> CriptografaSHA256(string senha)
+        public string CriptografaSHA256(string senha)
         {
             try
             {
-                string sdsUrl = "Usuario/CriptografaSHA256?senha=" + senha;
-                var response = await RequestWS.RequestGET(sdsUrl);
-                response.EnsureSuccessStatusCode();
-                var retorno = await response.Content.ReadAsStringAsync();
-                retorno = retorno.Replace("\"", "");
 
-                return retorno;
+                SHA256Managed crypt = new SHA256Managed();
+                StringBuilder hash = new StringBuilder();
+                byte[] crypto = crypt.ComputeHash(Encoding.UTF8.GetBytes(senha), 0, Encoding.UTF8.GetByteCount(senha));
+                foreach (byte theByte in crypto)
+                {
+                    hash.Append(theByte.ToString("x2"));
+                }
+                var retorno = hash.ToString();
+                return retorno.TrimStart('"').TrimEnd('"');
+
             }
             catch(Exception ex)
             {
@@ -95,7 +100,7 @@ namespace DCasaPizzas.Logic
         {
             try
             {
-                user.DS_SENHA = await CriptografaSHA256(user.DS_SENHA);
+                user.DS_SENHA = CriptografaSHA256(user.DS_SENHA);
 
                 string sdsUrl = "Usuario/VerificaUsuarioSenha?sdsEmail=" + user.DS_EMAIL+"&sdsSenha="+user.DS_SENHA;
                 var response = await RequestWS.RequestGET(sdsUrl);
