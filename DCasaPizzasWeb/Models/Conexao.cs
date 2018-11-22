@@ -70,7 +70,29 @@ namespace DCasaPizzasWeb.Models
             }
             catch (Exception ex)
             {
-                Erro.GerarErro(ex.Source + " - " + ex.Message, "Executar Query MySQL");
+                Erro.GerarErro(ex.Source + " - " + ex.Message, "Executar Query SqlServer");
+                throw;
+            }
+        }
+
+        internal long UltimoID(string v1, string v2)
+        {
+            SqlDataReader q = null;
+            try
+            {
+                long nid = 0;
+
+                q = ExecQuery("select max(" + v2 + ") as max from solari." + v1);
+                q.Read();
+                nid = Convert.ToInt64(q["max"]) + 1;
+
+                q.Close();
+                FechaUltimaConexao();
+                return nid;               
+            }
+            catch (Exception ex)
+            {
+                Erro.GerarErro(ex.Source + " - " + ex.Message, "Último ID SqlServer");
                 throw;
             }
         }
@@ -115,7 +137,7 @@ namespace DCasaPizzasWeb.Models
                 }
                 catch (Exception ex)
                 {
-                    Erro.GerarErro(ex.Source + " - " + ex.Message, "Executar Query SQL");
+                    Erro.GerarErro(ex.Source + " - " + ex.Message, "Executar Query SqlServer");
                     throw;
                 }
                 finally

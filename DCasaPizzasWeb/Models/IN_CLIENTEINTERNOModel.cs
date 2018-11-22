@@ -23,10 +23,12 @@ namespace DCasaPizzasWeb.Models
         public string NR_CEP { get; set; }
         public string NR_CPF { get; set; }
         public string NR_CNPJ { get; set; }
+        public string NR_DDD { get; set; }
         public string DS_TELEFONE { get; set; }
         public string DS_CELULAR { get; set; }
         public int NR_DIAVENCIMENTO { get; set; }
         public string BO_ADMIN { get; set; }
         public string DS_BAIRRO { get; set; }
+        public string DS_EMAIL { get; set; }
     }
 }

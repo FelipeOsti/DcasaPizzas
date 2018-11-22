@@ -11,6 +11,7 @@ namespace DCasaPizzasWeb.Models.PagSeguro
         public string documento { get; set; }
         public string nome { get; set; }
         public string email { get; set; }
-        public Phone telefone { get; set; }
+        public string ddd { get; set; }
+        public string telefone { get; set; }
     }
 }

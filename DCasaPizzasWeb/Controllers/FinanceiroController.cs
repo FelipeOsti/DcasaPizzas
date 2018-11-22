@@ -155,8 +155,11 @@ namespace DCasaPizzasWeb.Controllers
         private void CriarLiquidacao(long nidParcela, double valor)
         {
             var con = new Conexao();
+            SqlDataReader qDoc = null; 
             try
             {
+                qDoc = con.ExecQuery("select * from solari.cr_docum where ID_DOCUM in(select ID_DOCUM from solari.CR_PARCELA where ID_PARCELA = " + nidParcela + ")");
+                qDoc.Read();
                 NumberFormatInfo nfi = new NumberFormatInfo();
                 nfi.NumberDecimalSeparator = ".";
                 con.ExecCommand("insert into solari.CR_LIQUIDACAO values (" + nidParcela+","+valor.ToString(nfi) + ",GETDATE())");
@@ -164,10 +167,18 @@ namespace DCasaPizzasWeb.Controllers
                 con.ExecCommand("update solari.CR_PARCELA set VL_PAGO = VL_PAGO + " + valor.ToString(nfi)+" where ID_PARCELA = "+nidParcela);
 
                 LicencaController licenca = new LicencaController();
+                licenca.CriarLicenca(Convert.ToInt64(qDoc["ID_CLIENTEINTERNO"]));
             }
-            catch
+            catch (Exception ex)
             {
                 throw;
+            }
+            finally
+            {
+                if (qDoc != null)
+                    if (!qDoc.IsClosed) qDoc.Close();
+                con.FechaConexao();
+                    
             }
         }
     }

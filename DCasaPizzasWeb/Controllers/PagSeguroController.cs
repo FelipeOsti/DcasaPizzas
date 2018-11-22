@@ -82,7 +82,7 @@ namespace DCasaPizzasWeb.Controllers
                 pagSeguro.enderecoEntrega.endereco, pagSeguro.enderecoEntrega.numero, pagSeguro.enderecoEntrega.complemento);
 
             // Sets your customer information.
-            payment.Sender = new Sender(pagSeguro.cliente.nome, pagSeguro.cliente.email, pagSeguro.cliente.telefone);
+            payment.Sender = new Sender(pagSeguro.cliente.nome, pagSeguro.cliente.email, new Phone(pagSeguro.cliente.ddd,pagSeguro.cliente.telefone));
 
             SenderDocument document = new SenderDocument(Documents.GetDocumentByType("CPF"), pagSeguro.cliente.documento);
             payment.Sender.Documents.Add(document);
