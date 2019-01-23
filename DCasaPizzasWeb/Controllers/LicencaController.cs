@@ -13,6 +13,46 @@ namespace DCasaPizzasWeb.Controllers
     public class LicencaController : ApiController
     {
         [HttpGet]
+        [Route("GetLicenca/{nidCliente}")]
+        public List<IN_CHAVELICENCAModel> GetLicenca(long nidCliente)
+        {
+            var con = new Conexao();
+            SqlDataReader qLicenca = null;
+            try
+            {
+                var lista = new List<IN_CHAVELICENCAModel>();
+
+                qLicenca = con.ExecQuery("select * from solari.IN_CHAVELICENCA where ID_CLIENTEINTERNO = " + nidCliente + " order by DT_VALIDADE desc");
+                if (qLicenca.HasRows)
+                {
+                    while (qLicenca.Read())
+                    {
+                        lista.Add(new IN_CHAVELICENCAModel()
+                        {
+                            ID_CHAVELICENCA = Convert.ToInt64(qLicenca["ID_CHAVELICENCA"]),
+                            ID_CLIENTEINTERNO = nidCliente,
+                            DS_CHAVE = (string)qLicenca["DS_CHAVE"],
+                            DT_VALIDADE = Convert.ToDateTime(qLicenca["DT_VALIDADE"])
+                        });
+                    }
+                }
+
+                return lista;
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                if (qLicenca != null)
+                    if (!qLicenca.IsClosed) qLicenca.Close();
+
+                con.FechaConexao();
+            }
+        }
+
+        [HttpGet]
         [Route("CriarLicenca")]
         public void CriarLicenca(long nidCliente)
         {

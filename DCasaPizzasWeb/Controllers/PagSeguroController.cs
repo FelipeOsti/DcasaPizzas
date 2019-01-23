@@ -15,13 +15,14 @@ using DCasaPizzasWeb.Models.PagSeguro;
 using DCasaPizzasWeb.Models.PagSeguro;
 using Uol.PagSeguro.Service;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace DCasaPizzasWeb.Controllers
 {
     [RoutePrefix("api/pagseguro")]
     public class PagSeguroController : ApiController
     {
-        bool isSandbox = true;
+        bool isSandbox = false;
 
         public PagSeguroController()
         {
@@ -51,6 +52,15 @@ namespace DCasaPizzasWeb.Controllers
             }
         }
 
+        internal string RemoverAcentos(string texto)
+        {
+            if (string.IsNullOrEmpty(texto))
+                return String.Empty;
+
+            byte[] bytes = System.Text.Encoding.GetEncoding("iso-8859-8").GetBytes(texto);
+            return System.Text.Encoding.UTF8.GetString(bytes);
+        }
+
         [Route("CriarPagamento")]
         public string CriarPagamento(PagSeguroModel pagSeguro)
         {            
@@ -59,13 +69,16 @@ namespace DCasaPizzasWeb.Controllers
             // Instantiate a new payment request
             PaymentRequest payment = new PaymentRequest();
 
+            var itemParam = new ParameterItem("encoding", "UTF-8");
+            payment.Parameter.Items.Add(itemParam);
+
             // Sets the currency
             payment.Currency = Currency.Brl;
 
             foreach (var item in pagSeguro.produtos)
             {
                 // Add an item for this payment request
-                payment.Items.Add(new Item(item.id,item.descricao,item.qtde,item.unitario));
+                payment.Items.Add(new Item(item.id, RemoverAcentos(item.descricao) ,item.qtde,item.unitario));
             }
             // Sets a reference code for this payment request, it is useful to identify this payment in future notifications.
             payment.Reference = pagSeguro.paymontReference;
