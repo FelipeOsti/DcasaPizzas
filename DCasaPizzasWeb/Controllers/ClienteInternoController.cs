@@ -41,6 +41,7 @@ namespace DCasaPizzasWeb.Controllers
         [Route("SalvarCliente")]
         public void SalvarCliente(IN_CLIENTEINTERNOModel cli)
         {
+            var bboCriaFinImplantacao = false;
             var con = new Conexao();
             try
             {
@@ -70,8 +71,18 @@ where ID_CLIENTEINTERNO = " + cli.ID_CLIENTEINTERNO;
                     sdsSql = "insert into solari.CM_CLIENTEINTERNO values ("+ nid + ",'"+cli.DS_NOME+"','"+cli.CD_LOGIN+"','"+cli.DS_SENHA+"',"+cli.ID_PLANO+",getDate(),"+cli.VL_IMPLANTACAO+","+cli.NR_PARCELASIMPLANT+
                         ",'"+cli.DS_CIDADE+"','"+cli.DS_ENDERECO+"','"+cli.NR_NUMERO+"','"+cli.CD_UF+"','"+cli.NR_CEP+"','"+cli.NR_CPF+"','"+cli.NR_CNPJ+"','"+cli.DS_TELEFONE+"','"+cli.DS_CELULAR+"'," +
                         cli.NR_DIAVENCIMENTO+",'"+cli.BO_ADMIN+"','"+cli.DS_BAIRRO+"','"+cli.NR_DDD+"','"+cli.DS_EMAIL+"')";
+
+                    bboCriaFinImplantacao = true;
+                    cli.ID_CLIENTEINTERNO = nid;
                 }
                 con.ExecCommand(sdsSql);
+
+                if (bboCriaFinImplantacao)
+                {                    
+                    var finC = new FinanceiroController();
+                    finC.GerarFinanceiroImplantacao(cli);
+                    finC.GerarFinanceiroMensalidade(cli.ID_CLIENTEINTERNO);
+                }
             }
             catch
             {

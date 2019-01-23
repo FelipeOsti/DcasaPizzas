@@ -112,6 +112,79 @@ namespace DCasaPizzasWeb.Controllers
             }
         }
 
+        internal void GerarFinanceiroImplantacao(IN_CLIENTEINTERNOModel cli)
+        {
+            var con = new Conexao();
+            try
+            {
+                var ddtPriParcela = new DateTime(DateTime.Now.Year, DateTime.Now.Month, cli.NR_DIAVENCIMENTO);
+                if (ddtPriParcela.Date < DateTime.Now.Date) ddtPriParcela = ddtPriParcela.AddMonths(1);
+
+                var retorno = CriarDocumento(new DocumentoFinModel()
+                {
+                    sdsDocum = "Implantação PDV",
+                    FL_TIPODOCUM = "I",
+                    nidCliente = cli.ID_CLIENTEINTERNO,
+                    nrParcelas = cli.NR_PARCELASIMPLANT,
+                    vlDesconto = 0,
+                    vlDocum = cli.VL_IMPLANTACAO,
+                    ddtPriParcela = ddtPriParcela
+                });
+                if (retorno != "OK") throw new Exception(retorno);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        internal string GerarFinanceiroMensalidade(long nidCliente)
+        {
+            var con = new Conexao();
+            SqlDataReader qContas = null;
+            SqlDataReader qPlano = null;
+            try
+            {
+
+                qPlano = con.ExecQuery("select * from solari.CM_PLANO where ID_PLANO in(select ID_PLANO from solari.CM_CLIENTEINTERNO where ID_CLIENTEINTERNO = " + nidCliente + ")");
+                if (!qPlano.HasRows) throw new Exception("Cliente sem nenhum plano relacionado!");
+
+                var dataAtual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+                var ddtIni = dataAtual.Year + "-" + dataAtual.Month + "-1";
+
+                qPlano.Read();
+                if (qPlano["FL_PLANO"].ToString() == "M") dataAtual = dataAtual.AddMonths(1);
+                if (qPlano["FL_PLANO"].ToString() == "T") dataAtual = dataAtual.AddMonths(3);
+                if (qPlano["FL_PLANO"].ToString() == "S") dataAtual = dataAtual.AddMonths(6);
+                if (qPlano["FL_PLANO"].ToString() == "A") dataAtual = dataAtual.AddYears(1);
+
+                dataAtual = dataAtual.AddDays(-1);
+                var ddtFim = dataAtual.Year + "-" + dataAtual.Month + "-" + dataAtual.Day;
+
+                qContas = con.ExecQuery("select * from solari.CR_PARCELA where ID_DOCUM in(select ID_DOCUM from solari.CR_DOCUM where ID_CLIENTEINTERNO = " + nidCliente + " and FL_TIPODOCUM = 'M') and DT_VENCIMENTO between '" + ddtIni + "' and '" + ddtFim + "'");
+                if (qContas.HasRows) return "";
+
+                var retorno = CriarDocumento(new DocumentoFinModel()
+                {
+                    sdsDocum = "Mensalidade PDV",
+                    FL_TIPODOCUM = "M",
+                    nidCliente = nidCliente,
+                    nrParcelas = 1,
+                    vlDesconto = 0,
+                    vlDocum = Convert.ToDouble(qPlano["VL_PLANO"]),
+                    ddtPriParcela = DateTime.Now.Date.AddDays(3)
+                });
+
+                if (retorno != "OK") throw new Exception(retorno);
+
+                return "";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
         [HttpPost]
         [Route("CriarDocumento")]
         public string CriarDocumento(DocumentoFinModel docum)
@@ -122,7 +195,7 @@ namespace DCasaPizzasWeb.Controllers
             {
                 NumberFormatInfo nfi = new NumberFormatInfo();
                 nfi.NumberDecimalSeparator = ".";
-                con.ExecCommand("insert into solari.CR_DOCUM values('" + docum.sdsDocum + "'," + docum.nidCliente + "," + docum.vlDocum.ToString(nfi) + ",GETDATE()," + docum.vlDesconto.ToString(nfi) + ")");
+                con.ExecCommand("insert into solari.CR_DOCUM values('" + docum.sdsDocum + "'," + docum.nidCliente + "," + docum.vlDocum.ToString(nfi) + ",GETDATE()," + docum.vlDesconto.ToString(nfi) + ",'"+docum.FL_TIPODOCUM+"')");
 
                 qDocto = con.ExecQuery("select max(ID_DOCUM) as ID_DOCUM from solari.CR_DOCUM where DS_DOCUM = '" + docum.sdsDocum + "' and ID_CLIENTEINTERNO = " + docum.nidCliente);
                 qDocto.Read();
@@ -136,7 +209,7 @@ namespace DCasaPizzasWeb.Controllers
 
                 for (int i = 1; i <= docum.nrParcelas;i++ )
                 {          
-                    con.ExecCommand("insert into solari.CR_PARCELA values(" + nidDocto + "," + nvlParcela.ToString(nfi) + ",null,'" + ddtVencimento.Date.ToString("yyyy-MM-dd") + "')");
+                    con.ExecCommand("insert into solari.CR_PARCELA values(" + nidDocto + "," + nvlParcela.ToString(nfi) + ",0,'" + ddtVencimento.Date.ToString("yyyy-MM-dd") + "')");
                     ddtVencimento = ddtVencimento.AddMonths(1);
                 }
 

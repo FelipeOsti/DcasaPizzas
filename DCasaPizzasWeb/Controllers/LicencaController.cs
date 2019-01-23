@@ -55,5 +55,43 @@ namespace DCasaPizzasWeb.Controllers
                 con.FechaConexao();
             }
         }
+
+
+
+        [HttpGet]
+        [Route("VerificarLicenca/{nidCliente}")]
+        public string VerificarLicenca (long nidCliente)
+        {
+            var con = new Conexao();
+            SqlDataReader qLicenca = null;
+            try
+            {
+                FinanceiroController finC = new FinanceiroController();
+                var sdsRetorno = finC.GerarFinanceiroMensalidade(nidCliente);
+                if (sdsRetorno != "") return sdsRetorno;
+
+                qLicenca = con.ExecQuery("select max(DT_VALIDADE) as VALIDADE from solari.IN_CHAVELICENCA where ID_CLIENTEINTERNO = " + nidCliente);
+                if (!qLicenca.HasRows) return "Você não possui nenhuma licença válida! Pague uma mensalidade para liberar o acesso!";
+
+                qLicenca.Read();
+                if (qLicenca["VALIDADE"] == DBNull.Value) return "Nenhuma licença encontrada! Pague uma mensalidade para utilizar o ERP Solari";
+                DateTime validade = Convert.ToDateTime(qLicenca["VALIDADE"]);
+                if (validade.Date < DateTime.Now.Date) return "Sua chave de licença expirou! Pague uma mensalidade para continuar usando o ERP Solari";
+
+                return "";
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                if (qLicenca != null)
+                    if (!qLicenca.IsClosed) qLicenca.Close();
+                con.FechaConexao();
+            }
+        }
+
+        
     }
 }

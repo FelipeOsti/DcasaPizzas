@@ -14,6 +14,6 @@ namespace DCasaPizzasWeb.Models
         public double vlDesconto { get; set; }
         public int nrParcelas { get; set; }
         public DateTime ddtPriParcela { get; set; }
-
+        public string FL_TIPODOCUM { get; set; }
     }
 }
