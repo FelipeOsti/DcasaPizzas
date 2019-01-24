@@ -59,6 +59,7 @@ namespace DCasaPizzasWeb.Controllers
             var con = new Conexao();
             SqlDataReader qPlano = null;
             SqlDataReader qCliente = null;
+            SqlDataReader qLicenca = null;
             try
             {
                 qPlano = con.ExecQuery("select * from solari.CM_PLANO where ID_PLANO in(select ID_PLANO from solari.CM_CLIENTEINTERNO where ID_CLIENTEINTERNO = " + nidCliente + ")");
@@ -66,17 +67,28 @@ namespace DCasaPizzasWeb.Controllers
                 {
                     qPlano.Read();
                     var chave = Guid.NewGuid().ToString();
+                    DateTime dataValidade;
+                    qLicenca = con.ExecQuery("select * from solari.IN_CHAVELICENCA where DT_VALIDADE = (select max(DT_VALIDADE) from solari.IN_CHAVELICENCA where ID_CLIENTEINTERNO = " + nidCliente + ")");
+                    if (qLicenca.HasRows)
+                    {
+                        qLicenca.Read();
+                        dataValidade = Convert.ToDateTime(qLicenca["DT_VALIDADE"]);
+                        if (dataValidade <= DateTime.Now.Date) dataValidade = DateTime.Now.Date;
+                    }
+                    else
+                    {
+                        dataValidade = DateTime.Now.Date;
+                    }
 
                     qCliente = con.ExecQuery("select * from solari.CM_CLIENTEINTERNO where ID_CLIENTEINTERNO = " + nidCliente);
                     qCliente.Read();
-
-                    var dataValidade = new DateTime(DateTime.Now.Date.Year, DateTime.Now.Date.Month, qCliente["NR_DIAVENCIMENTO"] == DBNull.Value ? DateTime.Now.Date.Day : Convert.ToInt32(qCliente["NR_DIAVENCIMENTO"]));
+                    
                     if (qPlano["FL_PLANO"].ToString() == "M") dataValidade = dataValidade.AddMonths(1);
                     if (qPlano["FL_PLANO"].ToString() == "T") dataValidade = dataValidade.AddMonths(3);
                     if (qPlano["FL_PLANO"].ToString() == "S") dataValidade = dataValidade.AddMonths(6);
                     if (qPlano["FL_PLANO"].ToString() == "A") dataValidade = dataValidade.AddYears(1);
 
-                    dataValidade = dataValidade.AddDays(7);
+                    dataValidade = dataValidade.AddDays(3);
 
                     con.ExecCommand("insert into solari.IN_CHAVELICENCA values ("+nidCliente+",'"+chave+"','"+dataValidade.Date.ToString("yyyy-MM-dd") + "')");
                 }
@@ -96,8 +108,6 @@ namespace DCasaPizzasWeb.Controllers
             }
         }
 
-
-
         [HttpGet]
         [Route("VerificarLicenca/{nidCliente}")]
         public string VerificarLicenca (long nidCliente)
@@ -111,12 +121,25 @@ namespace DCasaPizzasWeb.Controllers
                 if (sdsRetorno != "") return sdsRetorno;
 
                 qLicenca = con.ExecQuery("select max(DT_VALIDADE) as VALIDADE from solari.IN_CHAVELICENCA where ID_CLIENTEINTERNO = " + nidCliente);
-                if (!qLicenca.HasRows) return "Você não possui nenhuma licença válida! Pague uma mensalidade para liberar o acesso!";
+                if (!qLicenca.HasRows)
+                {
+                    if (!finC.ExisteMensalidadePendente(nidCliente)) finC.GerarFinanceiroMensalidade(nidCliente);
+                    return "Você não possui nenhuma licença válida! Pague uma mensalidade para liberar o acesso ao ERP Solari!";
+                }
 
                 qLicenca.Read();
-                if (qLicenca["VALIDADE"] == DBNull.Value) return "Nenhuma licença encontrada! Pague uma mensalidade para utilizar o ERP Solari";
+                if (qLicenca["VALIDADE"] == DBNull.Value)
+                {
+                    if (!finC.ExisteMensalidadePendente(nidCliente)) finC.GerarFinanceiroMensalidade(nidCliente);
+                    return "Nenhuma licença encontrada! Pague uma mensalidade para utilizar o ERP Solari";
+                }
+
                 DateTime validade = Convert.ToDateTime(qLicenca["VALIDADE"]);
-                if (validade.Date < DateTime.Now.Date) return "Sua chave de licença expirou! Pague uma mensalidade para continuar usando o ERP Solari";
+                if (validade.Date < DateTime.Now.Date)
+                {
+                    if (!finC.ExisteMensalidadePendente(nidCliente)) finC.GerarFinanceiroMensalidade(nidCliente);
+                    return "Sua chave de licença expirou! Pague uma mensalidade para continuar usando o ERP Solari";
+                }
 
                 return "";
             }

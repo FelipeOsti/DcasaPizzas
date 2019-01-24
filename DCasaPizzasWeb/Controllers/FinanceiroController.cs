@@ -18,13 +18,23 @@ namespace DCasaPizzasWeb.Controllers
         {
             var con = new Conexao();
             SqlDataReader parcela = null;
+            SqlDataReader qDoc = null;
             try
             {
                 parcela = con.ExecQuery("select * from solari.cr_parcela where ID_PARCELA = " + nidParcela);
                 if(parcela.HasRows)
                 {
+                    qDoc = con.ExecQuery("select * from solari.CR_DOCUM where ID_DOCUM in(select ID_DOCUM from CR_PARCELA where ID_PARCELA = " + nidParcela + ")");                    
+                    if (!qDoc.HasRows) throw new Exception("Nenhum documento encontrado!");
+                    qDoc.Read();
+
                     parcela.Read();
                     CriarLiquidacao(nidParcela, Convert.ToDouble(parcela["VL_PARCELA"]));
+
+                    LicencaController licenca = new LicencaController();
+                    licenca.CriarLicenca(Convert.ToInt64(qDoc["ID_CLIENTEINTERNO"]));
+
+                    GerarFinanceiroMensalidade(Convert.ToInt64(qDoc["ID_CLIENTEINTERNO"]));
                 }
             }
             catch
@@ -112,6 +122,23 @@ namespace DCasaPizzasWeb.Controllers
             }
         }
 
+        internal bool ExisteMensalidadePendente(long nidCliente)
+        {
+            var con = new Conexao();
+            SqlDataReader qDocum = null;
+            SqlDataReader qParcela = null;
+            try
+            {
+                qParcela = con.ExecQuery("select ID_PARCELA from solari.CR_PARCELA where VL_PAGO is null and ID_DOCUM in(select ID_DOCUM from solari.CR_DOCUM where FL_TIPODOCUM = 'M' and ID_CLIENTEINTERNO = " + nidCliente + ")");
+                if (qParcela.HasRows) return true;
+                return false;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         internal void GerarFinanceiroImplantacao(IN_CLIENTEINTERNOModel cli)
         {
             var con = new Conexao();
@@ -141,29 +168,21 @@ namespace DCasaPizzasWeb.Controllers
         internal string GerarFinanceiroMensalidade(long nidCliente)
         {
             var con = new Conexao();
-            SqlDataReader qContas = null;
             SqlDataReader qPlano = null;
+            SqlDataReader qCliente = null;
             try
             {
+                qCliente = con.ExecQuery("select * from solari.CM_CLIENTEINTERNO where ID_CLIENTEINTERNO = " + nidCliente);
+                if (!qCliente.HasRows) throw new Exception("Nenhum cliente encontrado!");
+                qCliente.Read();
+                int diaParcela = Convert.ToInt32(qCliente["NR_DIAVENCIMENTO"]);
+                DateTime diaVencimento = new DateTime(DateTime.Now.Year, DateTime.Now.Month, diaParcela);
+                while (diaVencimento.Date <= DateTime.Now.Date) diaVencimento = diaVencimento.Date.AddDays(1); //Adicionar 2 dias até que vencimento seja maior que data atual
 
                 qPlano = con.ExecQuery("select * from solari.CM_PLANO where ID_PLANO in(select ID_PLANO from solari.CM_CLIENTEINTERNO where ID_CLIENTEINTERNO = " + nidCliente + ")");
                 if (!qPlano.HasRows) throw new Exception("Cliente sem nenhum plano relacionado!");
-
-                var dataAtual = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-                var ddtIni = dataAtual.Year + "-" + dataAtual.Month + "-1";
-
                 qPlano.Read();
-                if (qPlano["FL_PLANO"].ToString() == "M") dataAtual = dataAtual.AddMonths(1);
-                if (qPlano["FL_PLANO"].ToString() == "T") dataAtual = dataAtual.AddMonths(3);
-                if (qPlano["FL_PLANO"].ToString() == "S") dataAtual = dataAtual.AddMonths(6);
-                if (qPlano["FL_PLANO"].ToString() == "A") dataAtual = dataAtual.AddYears(1);
-
-                dataAtual = dataAtual.AddDays(-1);
-                var ddtFim = dataAtual.Year + "-" + dataAtual.Month + "-" + dataAtual.Day;
-
-                qContas = con.ExecQuery("select * from solari.CR_PARCELA where ID_DOCUM in(select ID_DOCUM from solari.CR_DOCUM where ID_CLIENTEINTERNO = " + nidCliente + " and FL_TIPODOCUM = 'M') and DT_VENCIMENTO between '" + ddtIni + "' and '" + ddtFim + "'");
-                if (qContas.HasRows) return "";
-
+                
                 var retorno = CriarDocumento(new DocumentoFinModel()
                 {
                     sdsDocum = "Mensalidade PDV",
@@ -172,7 +191,7 @@ namespace DCasaPizzasWeb.Controllers
                     nrParcelas = 1,
                     vlDesconto = 0,
                     vlDocum = Convert.ToDouble(qPlano["VL_PLANO"]),
-                    ddtPriParcela = DateTime.Now.Date.AddDays(3)
+                    ddtPriParcela = diaVencimento
                 });
 
                 if (retorno != "OK") throw new Exception(retorno);
@@ -182,6 +201,14 @@ namespace DCasaPizzasWeb.Controllers
             catch (Exception e)
             {
                 return e.Message;
+            }
+            finally
+            {
+                if (qPlano != null)
+                    if (!qPlano.IsClosed) qPlano.Close();
+                if (qCliente != null)
+                    if (!qCliente.IsClosed) qCliente.Close();
+                con.FechaConexao();
             }
         }
 
@@ -205,7 +232,7 @@ namespace DCasaPizzasWeb.Controllers
                 double nvlParcela = (docum.vlDocum - docum.vlDesconto) / docum.nrParcelas;
 
                 DateTime ddtVencimento = docum.ddtPriParcela;
-                if (ddtVencimento.Date <= DateTime.Now.Date) ddtVencimento = DateTime.Now.Date.AddDays(1);
+                if (ddtVencimento.Date < DateTime.Now.Date) ddtVencimento = DateTime.Now.Date.AddDays(1);
 
                 for (int i = 1; i <= docum.nrParcelas;i++ )
                 {          
@@ -221,6 +248,8 @@ namespace DCasaPizzasWeb.Controllers
             }
             finally
             {
+                if (qDocto != null)
+                    if (!qDocto.IsClosed) qDocto.Close();
                 con.FechaConexao();
             }
         }
@@ -238,9 +267,6 @@ namespace DCasaPizzasWeb.Controllers
                 con.ExecCommand("insert into solari.CR_LIQUIDACAO values (" + nidParcela+","+valor.ToString(nfi) + ",GETDATE())");
 
                 con.ExecCommand("update solari.CR_PARCELA set VL_PAGO = VL_PAGO + " + valor.ToString(nfi)+" where ID_PARCELA = "+nidParcela);
-
-                LicencaController licenca = new LicencaController();
-                licenca.CriarLicenca(Convert.ToInt64(qDoc["ID_CLIENTEINTERNO"]));
             }
             catch (Exception ex)
             {

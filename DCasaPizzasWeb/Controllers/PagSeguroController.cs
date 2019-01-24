@@ -29,29 +29,6 @@ namespace DCasaPizzasWeb.Controllers
             PagSeguroConfiguration.UrlXmlConfiguration = HttpRuntime.AppDomainAppPath + "/Configuration/PagSeguroConfig.xml";
         }
 
-        /*[Route("RetornoPagamento")]
-        public string RetornoPagamento(string transaction_id)
-        {
-            try
-            {
-                AccountCredentials credentials = PagSeguroConfiguration.Credentials(isSandbox);
-                Transaction transaction = TransactionSearchService.SearchByCode(credentials, transaction_id);
-
-                if(transaction.TransactionStatus == Uol.PagSeguro.Enums.TransactionStatus.Paid)
-                {
-                    var reference = long.Parse(transaction.Reference);
-                    FinanceiroController finC = new FinanceiroController();
-                    finC.RealizarPagamentoPagSeguro(reference);
-                }
-
-                return JsonConvert.SerializeObject(transaction);
-            }
-            catch
-            {
-                throw;
-            }
-        }*/
-
         internal string RemoverAcentos(string texto)
         {
             if (string.IsNullOrEmpty(texto))
