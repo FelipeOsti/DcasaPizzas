@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Confirmação de compra";
+}
+
+<head>
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=iso-8859-1" />
+    <meta http-equiv="content-language" content="pt-BR" />
+    <meta http-equiv="cache-control" content="no-cache,no-store" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta name="description" content="Fique protegido contra golpes online: Compre, faça pagamentos e receba dinheiro pela internet com segurança e tranquilidade usando PagSeguro. Saiba mais" />
+    <title>Solari Negocios</title>
+    <meta name="google-site-verification" content="" />
+    <link rel="stylesheet" type="text/css" href="https://stc.pagseguro.uol.com.br/pagseguro/c/views/lojamodelo/main.1547667992149.css" />
+    <link rel="Shortcut Icon" href="https://stc.pagseguro.uol.com.br/pagseguro/i/favicon.1547667992149.ico" type="image/x-icon" />
+</head>
+
+<body>
+
+    <div id="main">
+        <div id="transaction">
+            <h4>Obrigado pela compra!</h4>
+
+            <h5>Recebemos seu pedido!</h5>
+            <p>Uma mensagem com detalhes desta transação foi enviada para seu endereço de email.</p>
+            <p>Confira abaixo os detalhes da sua compra:</p>
+            <br/>
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td class="lbl" align="right">Status: </td>
+                    <td align="left"><strong id="statusDescription"> @ViewBag.sdsSituacao</strong></td>
+                </tr>
+                <tr>
+                    <td align="right">Valor: </td>
+                    <td align="left"><strong> R$ @ViewBag.transaction.GrossAmount</strong></td>
+                </tr>
+                <tr>
+                    <td align="right">Código do PagSeguro: </td>
+                    <td align="left"><strong> @ViewBag.transaction.Code</strong></td>
+                </tr>
+            </table>
+            <br />
+            <p>
+                Em caso de pagamento via Boleto,
+                O reconhecimento do pagamento pode demorar até 2 dias úteis.
+                Seu produto será liberado quando seu pagamento for confirmado.
+                Não se preocupe: você receberá uma mensagem de confirmação do PagSeguro
+                no e-mail @ViewBag.transaction.Sender.Email
+            </p>
+
+
+        </div>
+
+    </div>
+
+</body>

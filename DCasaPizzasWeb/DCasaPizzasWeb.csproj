@@ -201,6 +201,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ClienteInternoController.cs" />
+    <Compile Include="Controllers\ConfirmacaoPagamentoController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\FidelidadeController.cs" />
     <Compile Include="Controllers\FinanceiroController.cs" />
@@ -310,6 +311,9 @@
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <None Include="Properties\PublishProfiles\SolariWeb - Web Deploy2.pubxml" />
+    <Content Include="Views\ConfirmacaoPagamento\Index.cshtml" />
+    <Content Include="Views\Home\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_ViewStart.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

@@ -18,7 +18,7 @@ namespace DCasaPizzasWeb.Controllers
     [RoutePrefix("api/retornopagamento")]
     public class RetornoPagamentoController : ApiController
     {
-        bool isSandbox = true;
+        bool isSandbox = false;
 
         public RetornoPagamentoController()
         {

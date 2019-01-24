@@ -29,7 +29,7 @@ namespace DCasaPizzasWeb.Controllers
             PagSeguroConfiguration.UrlXmlConfiguration = HttpRuntime.AppDomainAppPath + "/Configuration/PagSeguroConfig.xml";
         }
 
-        [Route("RetornoPagamento")]
+        /*[Route("RetornoPagamento")]
         public string RetornoPagamento(string transaction_id)
         {
             try
@@ -50,7 +50,7 @@ namespace DCasaPizzasWeb.Controllers
             {
                 throw;
             }
-        }
+        }*/
 
         internal string RemoverAcentos(string texto)
         {
