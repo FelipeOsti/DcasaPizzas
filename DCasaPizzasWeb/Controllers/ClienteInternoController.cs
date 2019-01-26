@@ -81,7 +81,7 @@ where ID_CLIENTEINTERNO = " + cli.ID_CLIENTEINTERNO;
                 {                    
                     var finC = new FinanceiroController();
                     finC.GerarFinanceiroImplantacao(cli);
-                    finC.GerarFinanceiroMensalidade(cli.ID_CLIENTEINTERNO);
+                    finC.GerarFinanceiroMensalidade(cli.ID_CLIENTEINTERNO,DateTime.MinValue);
                 }
             }
             catch

@@ -32,9 +32,9 @@ namespace DCasaPizzasWeb.Controllers
                     CriarLiquidacao(nidParcela, Convert.ToDouble(parcela["VL_PARCELA"]));
 
                     LicencaController licenca = new LicencaController();
-                    licenca.CriarLicenca(Convert.ToInt64(qDoc["ID_CLIENTEINTERNO"]));
-
-                    GerarFinanceiroMensalidade(Convert.ToInt64(qDoc["ID_CLIENTEINTERNO"]));
+                    var dataValidade = licenca.CriarLicenca(Convert.ToInt64(qDoc["ID_CLIENTEINTERNO"]));
+                    var ddtVencimento = dataValidade.AddDays(-5);
+                    GerarFinanceiroMensalidade(Convert.ToInt64(qDoc["ID_CLIENTEINTERNO"]),ddtVencimento);
                 }
             }
             catch
@@ -163,9 +163,9 @@ namespace DCasaPizzasWeb.Controllers
             {
                 throw;
             }
-        }
+        }       
 
-        internal string GerarFinanceiroMensalidade(long nidCliente)
+        internal string GerarFinanceiroMensalidade(long nidCliente, DateTime ddtVencimento)
         {
             var con = new Conexao();
             SqlDataReader qPlano = null;
@@ -182,7 +182,7 @@ namespace DCasaPizzasWeb.Controllers
                 qPlano = con.ExecQuery("select * from solari.CM_PLANO where ID_PLANO in(select ID_PLANO from solari.CM_CLIENTEINTERNO where ID_CLIENTEINTERNO = " + nidCliente + ")");
                 if (!qPlano.HasRows) throw new Exception("Cliente sem nenhum plano relacionado!");
                 qPlano.Read();
-                
+
                 var retorno = CriarDocumento(new DocumentoFinModel()
                 {
                     sdsDocum = "Mensalidade PDV",
@@ -191,7 +191,7 @@ namespace DCasaPizzasWeb.Controllers
                     nrParcelas = 1,
                     vlDesconto = 0,
                     vlDocum = Convert.ToDouble(qPlano["VL_PLANO"]),
-                    ddtPriParcela = diaVencimento
+                    ddtPriParcela = ddtVencimento == DateTime.MinValue ? diaVencimento : ddtVencimento
                 });
 
                 if (retorno != "OK") throw new Exception(retorno);
